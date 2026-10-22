@@ -1,8 +1,8 @@
 ﻿import { Component, OnInit, computed, inject, signal } from '@angular/core';
 import { CurrencyPipe, DatePipe } from '@angular/common';
 import { Observable, finalize } from 'rxjs';
-import { environment } from '../environments/environment';
 import { ESTADOS, EstadoFactura, ResultadoProceso, Resumen } from './models/factura.models';
+import { mailpitUrl as urlMailpit } from './env';
 import { FacturasService } from './services/facturas.service';
 
 @Component({
@@ -14,7 +14,7 @@ import { FacturasService } from './services/facturas.service';
 export class App implements OnInit {
   private readonly facturasService = inject(FacturasService);
 
-  protected readonly mailpitUrl = environment.mailpitUrl;
+  protected readonly mailpitUrl = urlMailpit;
   protected readonly resumen = signal<Resumen | null>(null);
   protected readonly resultado = signal<ResultadoProceso | null>(null);
   protected readonly cargando = signal(false);

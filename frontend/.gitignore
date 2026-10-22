@@ -43,5 +43,5 @@ __screenshots__/
 .DS_Store
 Thumbs.db
 
-# Configuración local. Se crea a mano; no se versiona.
-/src/environments/environment.ts
+# Configuración local. No se versiona.
+.env
