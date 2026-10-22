@@ -39,7 +39,7 @@ export class App implements OnInit {
       return {
         ...estado,
         cantidad: facturas.length,
-        valor: facturas.reduce((suma, f) => suma + f.valor, 0),
+        monto: facturas.reduce((suma, f) => suma + f.valor, 0),
       };
     }),
   );
@@ -85,3 +85,4 @@ export class App implements OnInit {
     });
   }
 }
+

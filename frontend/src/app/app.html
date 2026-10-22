@@ -45,7 +45,7 @@
       <article class="tarjeta" [attr.data-estado]="total.valor">
         <span class="tarjeta-etiqueta">{{ total.etiqueta }}</span>
         <span class="tarjeta-cantidad">{{ total.cantidad }}</span>
-        <span class="tarjeta-valor">{{ total.valor | currency: 'COP' : 'symbol-narrow' : '1.0-0' }}</span>
+        <span class="tarjeta-valor">{{ total.monto | currency: 'COP' : 'symbol-narrow' : '1.0-0' }}</span>
       </article>
     }
   </section>
@@ -94,3 +94,4 @@
     </div>
   </section>
 </main>
+
