@@ -1,6 +1,11 @@
-@Facturacion.Api_HostAddress = http://localhost:5175
+﻿@Api = http://localhost:5080/api/facturas
 
-GET {{Facturacion.Api_HostAddress}}/weatherforecast/
-Accept: application/json
+GET {{Api}}/resumen
 
 ###
+
+POST {{Api}}/procesar-recordatorios
+
+###
+
+POST {{Api}}/reiniciar-datos
