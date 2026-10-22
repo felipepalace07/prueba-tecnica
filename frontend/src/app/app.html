@@ -1,0 +1,96 @@
+﻿<main class="contenedor">
+  <header class="encabezado">
+    <div>
+      <h1>Facturación</h1>
+      <p class="subtitulo">Resumen de facturas y envío de recordatorios</p>
+    </div>
+    <div class="acciones">
+      <button class="boton secundario" (click)="reiniciar()" [disabled]="cargando()">Reiniciar datos</button>
+      <button class="boton primario" (click)="procesar()" [disabled]="cargando()">
+        {{ cargando() ? 'Procesando…' : 'Procesar recordatorios' }}
+      </button>
+    </div>
+  </header>
+
+  @if (error()) {
+    <div class="alerta error">{{ error() }}</div>
+  }
+
+  @if (resultado(); as r) {
+    <section class="panel">
+      <div class="panel-titulo">
+        <h2>Resultado del proceso</h2>
+        <a [href]="mailpitUrl" target="_blank" rel="noopener">Ver correos enviados ↗</a>
+      </div>
+      <p>
+        {{ r.procesadas }} procesadas · <span class="ok">{{ r.exitosas }} exitosas</span>
+        @if (r.fallidas > 0) { · <span class="falla">{{ r.fallidas }} con error</span> }
+      </p>
+      @if (r.procesadas === 0) {
+        <p class="muted">No había facturas en primer o segundo recordatorio.</p>
+      }
+      <ul class="lista-resultados">
+        @for (item of r.resultados; track item.numeroFactura) {
+          <li>
+            <strong>{{ item.numeroFactura }}</strong> · {{ item.cliente }}:
+            {{ etiqueta(item.estadoAnterior) }} → {{ item.exitoso ? etiqueta(item.estadoNuevo) : 'Error: ' + item.error }}
+          </li>
+        }
+      </ul>
+    </section>
+  }
+
+  <section class="tarjetas">
+    @for (total of totales(); track total.valor) {
+      <article class="tarjeta" [attr.data-estado]="total.valor">
+        <span class="tarjeta-etiqueta">{{ total.etiqueta }}</span>
+        <span class="tarjeta-cantidad">{{ total.cantidad }}</span>
+        <span class="tarjeta-valor">{{ total.valor | currency: 'COP' : 'symbol-narrow' : '1.0-0' }}</span>
+      </article>
+    }
+  </section>
+
+  <section class="panel">
+    <div class="panel-titulo">
+      <h2>Facturas</h2>
+      <label class="filtro">
+        Cliente
+        <select (change)="seleccionarCliente($event)">
+          <option value="">Todos</option>
+          @for (cliente of clientes(); track cliente.id) {
+            <option [value]="cliente.id">{{ cliente.nombre }}</option>
+          }
+        </select>
+      </label>
+    </div>
+
+    <div class="tabla-scroll">
+      <table>
+        <thead>
+          <tr>
+            <th>N.º</th>
+            <th>Cliente</th>
+            <th>Correo</th>
+            <th class="derecha">Valor</th>
+            <th>Vencimiento</th>
+            <th>Estado</th>
+          </tr>
+        </thead>
+        <tbody>
+          @for (factura of facturasFiltradas(); track factura.numero) {
+            <tr>
+              <td>{{ factura.numero }}</td>
+              <td>{{ factura.cliente }}</td>
+              <td class="muted">{{ factura.email }}</td>
+              <td class="derecha">{{ factura.valor | currency: 'COP' : 'symbol-narrow' : '1.0-0' }}</td>
+              <td>{{ factura.fechaVencimiento | date: 'dd/MM/yyyy' : 'UTC' }}</td>
+              <td><span class="badge" [attr.data-estado]="factura.estado">{{ etiqueta(factura.estado) }}</span></td>
+            </tr>
+          } @empty {
+            <tr><td colspan="6" class="muted centro">No hay facturas para mostrar.</td></tr>
+          }
+        </tbody>
+      </table>
+    </div>
+  </section>
+</main>

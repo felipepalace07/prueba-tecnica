@@ -1,0 +1,83 @@
+﻿:host {
+  --fondo: #f6f7f9;
+  --superficie: #ffffff;
+  --borde: #e3e6ea;
+  --texto: #1d2329;
+  --muted: #6b7480;
+  --primario: #2457d6;
+  --pendiente: #e6f4ea;
+  --primer: #fff4d6;
+  --segundo: #ffe4cc;
+  --desactivado: #fde2e1;
+  display: block;
+  min-height: 100vh;
+  background: var(--fondo);
+  color: var(--texto);
+  font-family: system-ui, -apple-system, 'Segoe UI', sans-serif;
+}
+
+@media (prefers-color-scheme: dark) {
+  :host {
+    --fondo: #14171b;
+    --superficie: #1d2126;
+    --borde: #2e343b;
+    --texto: #e8eaed;
+    --muted: #9aa3ad;
+    --primario: #5b8cff;
+    --pendiente: #1f3a2a;
+    --primer: #3d3517;
+    --segundo: #43301c;
+    --desactivado: #482424;
+  }
+}
+
+.contenedor { max-width: 1100px; margin: 0 auto; padding: 2rem 1rem; }
+
+.encabezado { display: flex; justify-content: space-between; align-items: flex-end; gap: 1rem; flex-wrap: wrap; margin-bottom: 1.5rem; }
+h1 { margin: 0; font-size: 1.8rem; }
+h2 { margin: 0; font-size: 1.1rem; }
+.subtitulo, .muted { color: var(--muted); }
+.subtitulo { margin: .25rem 0 0; }
+
+.acciones { display: flex; gap: .5rem; }
+.boton { border: 1px solid var(--borde); border-radius: 8px; padding: .6rem 1rem; font-size: .95rem; cursor: pointer; }
+.boton:disabled { opacity: .6; cursor: not-allowed; }
+.boton.primario { background: var(--primario); color: #fff; border-color: var(--primario); }
+.boton.secundario { background: var(--superficie); color: var(--texto); }
+
+.alerta.error { background: var(--desactivado); border-radius: 8px; padding: .8rem 1rem; margin-bottom: 1rem; }
+
+.tarjetas { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 1rem; margin-bottom: 1.5rem; }
+.tarjeta { background: var(--superficie); border: 1px solid var(--borde); border-left-width: 5px; border-radius: 10px; padding: 1rem; display: flex; flex-direction: column; gap: .2rem; }
+.tarjeta-etiqueta { color: var(--muted); font-size: .9rem; }
+.tarjeta-cantidad { font-size: 2rem; font-weight: 700; }
+.tarjeta-valor { color: var(--muted); }
+
+.panel { background: var(--superficie); border: 1px solid var(--borde); border-radius: 10px; padding: 1.25rem; margin-bottom: 1.5rem; }
+.panel-titulo { display: flex; justify-content: space-between; align-items: center; gap: 1rem; flex-wrap: wrap; margin-bottom: .75rem; }
+.panel a { color: var(--primario); }
+.lista-resultados { margin: .5rem 0 0; padding-left: 1.2rem; line-height: 1.8; }
+.ok { color: #2f9e44; font-weight: 600; }
+.falla { color: #e03131; font-weight: 600; }
+
+.filtro { display: flex; align-items: center; gap: .5rem; color: var(--muted); }
+.filtro select { padding: .4rem .6rem; border-radius: 6px; border: 1px solid var(--borde); background: var(--superficie); color: var(--texto); }
+
+.tabla-scroll { overflow-x: auto; }
+table { width: 100%; border-collapse: collapse; }
+th, td { padding: .7rem .6rem; border-bottom: 1px solid var(--borde); text-align: left; white-space: nowrap; }
+th { color: var(--muted); font-weight: 600; font-size: .85rem; text-transform: uppercase; letter-spacing: .03em; }
+.derecha { text-align: right; }
+.centro { text-align: center; }
+
+.badge { padding: .25rem .65rem; border-radius: 999px; font-size: .85rem; }
+
+[data-estado='Pendiente'].badge { background: var(--pendiente); }
+[data-estado='PrimerRecordatorio'].badge { background: var(--primer); }
+[data-estado='SegundoRecordatorio'].badge { background: var(--segundo); }
+[data-estado='Desactivado'].badge { background: var(--desactivado); }
+
+.tarjeta[data-estado='Pendiente'] { border-left-color: #2f9e44; }
+.tarjeta[data-estado='PrimerRecordatorio'] { border-left-color: #f2b705; }
+.tarjeta[data-estado='SegundoRecordatorio'] { border-left-color: #f76707; }
+.tarjeta[data-estado='Desactivado'] { border-left-color: #e03131; }
