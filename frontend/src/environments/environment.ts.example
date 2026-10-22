@@ -1,5 +1,0 @@
-// Copia este archivo como environment.ts. Ese archivo no se versiona.
-export const environment = {
-  apiUrl: 'http://localhost:5080/api',
-  mailpitUrl: 'http://localhost:8025',
-};
